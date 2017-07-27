@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.test.web.dao.BoardDao">
+
+	<select id="selectBoard" resultType="boardBean">
+		select
+		ID as id,
+		TITLE as title,
+		CONTENT as content,
+		REG_DATE as regData,
+		USER_ID as userId
+		from board
+		
+		where ID = #{id}
+
+	</select>
+	
+	<select id="selectBoardList" resultType="boardBean">
+		select
+		ID as id,
+		TITLE as title,
+		CONTENT as content,
+		REG_DATE as regData,
+		USER_ID as userId
+		from board
+
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="insertBoard" parameterType="boardBean">
+	
+		INSERT INTO board
+		(
+			
+			TITLE, CONTENT, REG_DATE, USER_ID
+		)
+		VALUES
+		(
+			#{title}, #{content}, #{regData}, #{userId}
+		)
+	
+	</insert>
+	
+	<!-- 업데이트-->
+	<update id="updateBoard" parameterType="boardBean">
+	
+	UPDATE board
+	SET 
+	
+		TITLE = #{title}, 
+		CONTENT = #{content}, 
+		REG_DATE = #{regData},
+		USER_ID = #{userId}
+	
+	WHERE
+		ID = #{id}
+	
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="deleteBoard" parameterType="boardBean"> 
+	
+	DELETE FROM board
+	WHERE
+		ID = #{id}
+	</delete>
+	
+</mapper>

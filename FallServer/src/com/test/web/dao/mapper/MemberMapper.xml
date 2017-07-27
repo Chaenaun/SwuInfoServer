@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.test.web.dao.MemberDao">
+
+	<select id="selectMember" resultType="memberBean">
+		select
+		USER_ID AS userId,
+		USER_PW AS userPw,
+		NAME AS name,
+		HP AS hp,
+		PROFILE_IMG AS profileImg
+		from member
+		where USER_ID = #{userId}
+
+	</select>
+
+	<select id="selectMemberList" resultType="memberBean">
+		select
+		USER_ID AS userId,
+		USER_PW AS userPw,
+		NAME AS name,
+		HP AS hp,
+		PROFILE_IMG AS profileImg
+		from member
+
+	</select>
+
+	<!-- 회원가입 -->
+	<insert id="insertMember" parameterType="memberBean">
+
+		INSERT INTO member
+		(
+		USER_ID, USER_PW, NAME, HP
+		)
+		VALUES
+		(
+		#{userId}, #{userPw}, #{name}, #{hp}
+		)
+
+	</insert>
+
+	<!-- 업데이트 -->
+	<update id="updateMember" parameterType="memberBean">
+
+		UPDATE member
+		SET
+
+		USER_PW = #{userPw},
+		NAME = #{name},
+		HP = #{hp}
+
+		WHERE
+		USER_ID=#{userId} <!-- Dao에서 타고 들어오더라도 (1값이) userId값이 없다면 실행되지 않는다.  -->
+
+	</update>
+
+	<!-- 삭제 -->
+	<delete id="deleteMember" parameterType="memberBean">
+
+		DELETE FROM member
+		WHERE
+		USER_ID = #{userId}
+	</delete>
+
+
+	<select id="loginProc" parameterType="memberBean" resultType="memberBean">
+		select
+		USER_ID AS userId,
+		USER_PW AS userPw,
+		NAME AS name,
+		HP AS hp,
+		PROFILE_IMG AS profileImg
+		from member
+		where
+		USER_ID=#{userId} AND
+		USER_PW=#{userPw}
+
+	</select>
+
+</mapper>
